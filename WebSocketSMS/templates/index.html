@@ -1,0 +1,25 @@
+<script>
+    const chatSocket = new WebSocket('ws://' + window.location.host + '/sms/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3NzE1MjY0LCJpYXQiOjE3MTYxNzkyNjQsImp0aSI6IjZlNDk2NzQ2MTQ3OTQ3MWY4Yzg2YzFjYjlkNGI2MmU1IiwidXNlcl9pZCI6MX0.HOkxtwXiRNLwMV2lqPTqBwJhBxd83KfG2-eraLvJ6tw');
+    chatSocket.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+        const message = data['message'];
+        const userID = data['userID']
+        console.log(message);
+
+
+        // Handle incoming message
+    };
+    chatSocket.onclose = function (e) {
+
+        console.error('Chat socket closed unexpectedly');
+    };
+    // Send message to
+    chatSocket.onopen = function (e) {
+        console.log(e);
+    }
+
+    function sendMessage(message) {
+        chatSocket.send(JSON.stringify({'message': message}));
+
+    }
+</script>
